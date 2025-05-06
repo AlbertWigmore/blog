@@ -7,8 +7,9 @@ export type Post = {
     date: string;
     excerpt: string;
     tags: string[];
-    content?: string;
+    imageUrl: string;
     urlSlug: string;
+    content?: string;
 }
 
 const postsDirectory = join(process.cwd(), "_posts");
@@ -25,9 +26,10 @@ export function getPostBySlug(slug: string): Post{
     const fullPath = join(postsDirectory, `${slug}`);
     const fileContents = fs.readFileSync(fullPath, "utf8");
 
-    const urlPath = slug.replace(/\.mdx$/, "");
+    let urlPath = slug.replace(/\.mdx$/, "");
+    urlPath = "post/" + urlPath;
     const { data, content } = matter(fileContents);
-  
+
     return { ...data, urlSlug: urlPath, content } as Post;
   }
 

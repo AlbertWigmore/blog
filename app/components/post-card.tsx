@@ -14,7 +14,7 @@ interface PostCardProps {
 
 export function PostCard(props: PostCardProps): JSX.Element {
   return (
-  <Card isPressable as={Link} className="col-span-12 sm:col-span-4 h-[300px]" href={props.urlSlug}>
+  <Card isPressable as={Link} className="col-span-12 sm:col-span-4 h-[250px]" href={props.urlSlug}>
     <CardHeader className="absolute z-10 top-1 flex-col !items-start">
       <h3 className="text-white font-medium text-large">{props.title}</h3>
       <p className="text-white/80 text-small">{props.date}</p>
@@ -23,7 +23,6 @@ export function PostCard(props: PostCardProps): JSX.Element {
       removeWrapper
       alt="Card background"
       className="z-0 w-full h-full object-cover"
-      // TODO: add image to front matter
       src={props.imageUrl}
     />
     <CardFooter className="absolute bottom-0 z-10 justify-between">

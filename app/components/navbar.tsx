@@ -1,32 +1,47 @@
 "use client";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem} from "@heroui/navbar";
 import {Link} from "@heroui/link";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
-// TODO: add state management for active link
-export function NavBar() {
+export type NavBarItem = {
+  name: string;
+  href: string;
+} 
+export type NavBarProps = {
+  title: string;
+  items: NavBarItem[];
+};
+
+export function NavBar(props: NavBarProps): JSX.Element {
   const [activeLink, setActiveLink] = useState("home");
+
+  useEffect(() => {
+  const currentPath = window.location.pathname;
+  const activeItem = props.items.find((item) => item.href === currentPath);
+  if (activeItem) {
+    setActiveLink(activeItem.name);
+  }
+}, []);
+
   return (
     <Navbar>
       <NavbarBrand>
-        <p className="font-bold text-inherit">AstroBertie</p>
+        <Link href="/" color="foreground">
+          <p className="font-bold text-inherit">{props.title}</p>
+        </Link>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem isActive={activeLink === "home"}>
-          <Link color={activeLink === "home" ? "primary" : "foreground"} href="/" onClick={() => setActiveLink("home")}>
-            Home
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive={activeLink === "posts"}>
-          <Link color={activeLink === "posts" ? "primary" : "foreground"} href="#" onClick={() => setActiveLink("posts")}>
-            Posts
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive={activeLink === "about"}>
-          <Link color={activeLink === "about" ? "primary" : "foreground"}  href="/about" onClick={() => setActiveLink("about")}>
-            About
-          </Link>
-        </NavbarItem>
+        {props.items.map((item) => (
+          <NavbarItem key={item.name} isActive={activeLink === item.name}>
+            <Link
+              color={activeLink === item.name ? "primary" : "foreground"}
+              href={item.href}
+              onClick={() => setActiveLink(item.name)}
+            >
+              {item.name}
+            </Link>
+          </NavbarItem>
+        ))}
       </NavbarContent>
       <NavbarContent justify="end">
       </NavbarContent>

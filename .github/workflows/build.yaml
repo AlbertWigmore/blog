@@ -13,3 +13,15 @@ jobs:
         run: npm install
       - name: Build Next.js app
         run: npm run build
+  build_docker_image:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v5
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        push: false
+        tags: blog:latest

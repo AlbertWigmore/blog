@@ -16,7 +16,7 @@ const HomePage: FC = () => {
           isBlurred
           alt="Its my face"
           className="m-5"
-          src="/profile.png"
+          src="/profile.webp"
           width={200}
         />
         <p className="text-center p-10">I&apos;m Albert, this is my personal blog where I write on various topics from hobbies to work.</p>

@@ -4,7 +4,13 @@ import clsx from "clsx";
 import { NavBar } from "@/app/components/navbar";
 import { Geist } from 'next/font/google'
 import { Providers } from "./providers";
-import { NavBarProps, NavBarItem  } from "@/app/components/navbar"; 
+import { NavBarProps, NavBarItem  } from "@/app/components/navbar";
+import type { ThemeProviderProps } from "next-themes";
+
+const themeProps: ThemeProviderProps = {
+  attribute: "class",
+  defaultTheme: "dark",
+};
 
 const geist = Geist({
   subsets: ['latin'],
@@ -46,7 +52,7 @@ export default function RootLayout({
       <body
         className={clsx("min-h-screen bg-background font-sans antialiased")}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+        <Providers themeProps={themeProps}>
           <div className="relative flex flex-col h-screen">
             <NavBar {...navBarProps} />
             <main className="container mx-auto max-w-7xl pt-4 px-6 flex-grow">

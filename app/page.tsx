@@ -1,10 +1,9 @@
 import { getAllPosts, getAllTILs } from "@/lib/content";
-import { FC } from "react";
 import { PostCard } from "@/app/components/post-card";
 import { TILCard } from "@/app/components/til-card";
 import { Image } from "@heroui/image";
 
-const HomePage: FC = () => {
+export default function Page() {
   const posts = getAllPosts();
   const tils = getAllTILs();
 
@@ -56,8 +55,4 @@ const HomePage: FC = () => {
       </div>
     </div>
   );
-};
-
-export default function Page() {
-  return <HomePage />;
-};
+}

@@ -7,6 +7,7 @@ interface TILCardProps {
   title: string;
   date: string;
   tags: string[];
+  published?: boolean;
 }  
 
 export function TILCard(props: TILCardProps) {

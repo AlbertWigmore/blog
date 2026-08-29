@@ -9,6 +9,7 @@ interface PostCardProps {
   date: string;
   imageUrl: string;
   tags: string[];
+  published?: boolean;
 }  
 
 export function PostCard(props: PostCardProps) {

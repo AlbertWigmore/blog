@@ -1,5 +1,6 @@
 import { Button } from "@heroui/button";
 import { GithubIcon, LinkedInIcon } from "@/app/components/icons";
+import { Link } from "@heroui/link"
 
 const socialLinks = [
   {
@@ -27,19 +28,18 @@ export default function Page() {
       <div className="flex flex-col gap-3">
         <ul className="flex flex-row gap-4">
           {socialLinks.map(({ name, href, Icon }) => (
-              <Button
-                as="a"
-                isExternal
-                href={href}
-                isIconOnly
-                aria-label={name}
-                variant="bordered"
-                radius="full"
-                size="lg"
-                className="w-12 h-12 min-w-0 p-0"
-              >
-              <Icon className="w-5 h-5" />
-              </Button>
+            <Link
+              key={name}
+              as={Button}
+              isIconOnly
+              href={href}
+              variant="bordered"
+              radius="full"
+              size="lg"
+              className="w-12 h-12 p-0 text-inherit hover:bg-background/50 transition-colors duration-150"
+            >
+              <Icon className="text-default-500 w-5 h-5" aria-label={name} />
+            </Link>
           ))}
         </ul>
       </div>

@@ -16,6 +16,7 @@ export default function Page() {
           className="m-5"
           src="/profile.webp"
           width={200}
+          height={200}
         />
         <p className="text-center p-10">I&apos;m Albert, this is my personal blog where I write on various topics from hobbies to work.</p>
       </div>
@@ -29,10 +30,9 @@ export default function Page() {
                 key={post.urlSlug}
                 title={post.title}
                 date={post.date}
-                excerpt={post.excerpt}
-                tags={post.tags}
-                urlSlug={post.urlSlug}
                 imageUrl={post.imageUrl}
+                urlSlug={post.urlSlug}
+                tags={post.tags}
               />
             ))}
           </div>

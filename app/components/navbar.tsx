@@ -1,7 +1,6 @@
 "use client";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem} from "@heroui/navbar";
 import {Link} from "@heroui/link";
-import {useState, useCallback} from "react";
 import { usePathname } from "next/navigation";
 
 export type NavBarItem = {
@@ -15,16 +14,7 @@ export type NavBarProps = {
 
 export function NavBar(props: NavBarProps): JSX.Element {
   const pathname = usePathname();
-
-  const getActiveLinkFromPath = useCallback((path: string) => {
-    return props.items.find(item => item.href === path)?.name || "home";
-  }, [props.items]);
-  
-  const [activeLink, setActiveLink] = useState(() => getActiveLinkFromPath(pathname));
-  
-  if (getActiveLinkFromPath(pathname) !== activeLink) {
-    setActiveLink(getActiveLinkFromPath(pathname));
-  }
+  const activeLink = props.items.find(item => item.href === pathname)?.name ?? null;
 
   return (
     <Navbar>
@@ -39,7 +29,6 @@ export function NavBar(props: NavBarProps): JSX.Element {
             <Link
               color={activeLink === item.name ? "primary" : "foreground"}
               href={item.href}
-              onClick={() => setActiveLink(item.name)}
             >
               {item.name}
             </Link>

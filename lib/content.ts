@@ -12,7 +12,7 @@ export type PostType = {
     date: string;
     excerpt: string;
     tags: string[];
-    imageUrl: string;
+    imageUrl?: string;
     published?: boolean;
     urlSlug: string;
     content?: string;
@@ -86,7 +86,7 @@ export function getPostBySlug(slug: string): PostType {
     date: data.date,
     excerpt: data.excerpt,
     tags: data.tags,
-    imageUrl: data.imageUrl,
+    imageUrl: data.imageUrl ?? undefined,
     published: data.published,
     urlSlug: urlPath,
     nextSlug: nextSlug,

@@ -1,0 +1,21 @@
+---
+title: "pbcopy"
+date: "2026-08-28"
+tags: ["cli", "macos"]
+published: true
+---
+
+Recently I was using my cursor to highlight text in the terminal and pressing `cmd+c` like a caveman.
+Then I stumbled across [`pbcopy`](https://man.freebsd.org/cgi/man.cgi?query=pbcopy&sektion=1&manpath=macOS+26.6.1), a default MacOS command available for copying the standard input to the clipboard.
+Its such a simple one purpose command but it makes a nice small change to daily work mainly for the following use cases.
+
+```bash
+kubectl get <group>/<resource> -o yaml | pbcopy
+```
+
+```bash
+echo $ENVVAR | pbcopy
+```
+
+It also got me thinking what other cool single purpose commands are out there that I haven't stumbled across yet and I stumbled upon this [website](https://www.commandlinefu.com/commands/browse/sort-by-votes).
+Will definitely be thinking about how I can automate more of my manual clicks via the CLI in the coming weeks!

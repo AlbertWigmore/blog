@@ -7,9 +7,15 @@ export default async function Page({params}: {params: Promise<{ slug: string }>}
   const post = getPostBySlug(slug)
 
   const content = await markdownToHtml(post.content || "");
-  return Content({
-    props: { title: post.title, date: post.date, nextSlug: post.nextSlug, prevSlug: post.prevSlug },
-    content,
-  })
+  return (
+    <Content
+      content={content}
+      props={{
+        title: post.title,
+        date: post.date,
+        nextSlug: post.nextSlug,
+        prevSlug: post.prevSlug,
+      }}
+    />
+  );
 }
- 

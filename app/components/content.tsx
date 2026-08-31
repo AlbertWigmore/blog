@@ -2,7 +2,19 @@ import { Button } from '@heroui/button';
 import { BackwardIcon, ForwardIcon } from '@heroicons/react/24/solid';
 import { Link } from '@heroui/link'
 
-export function Content({ props, content }: { props: { title: string, date: string, nextSlug: string | null, prevSlug: string | null }, content: string }): JSX.Element {
+export interface ContentHeaderProps {
+  title: string;
+  date: string;
+  nextSlug: string | null;
+  prevSlug: string | null;
+}
+
+export interface ContentProps {
+  props: ContentHeaderProps;
+  content: string;
+}
+
+export function Content({ props, content }: ContentProps): JSX.Element {
     return (
       <div>
         <h1>{props.title}</h1>

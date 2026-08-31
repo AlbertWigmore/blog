@@ -4,7 +4,13 @@ import clsx from "clsx";
 import { NavBar } from "@/app/components/navbar";
 import { Geist } from 'next/font/google'
 import { Providers } from "./providers";
-import { NavBarProps, NavBarItem  } from "@/app/components/navbar"; 
+import { NavBarProps, NavBarItem  } from "@/app/components/navbar";
+import type { ThemeProviderProps } from "next-themes";
+
+const themeProps: ThemeProviderProps = {
+  attribute: "class",
+  defaultTheme: "dark",
+};
 
 const geist = Geist({
   subsets: ['latin'],
@@ -41,15 +47,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={geist.className}>
+    <html lang="en" className={geist.className} suppressHydrationWarning>
       <head />
       <body
         className={clsx("min-h-screen bg-background font-sans antialiased")}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+        <Providers themeProps={themeProps}>
           <div className="relative flex flex-col h-screen">
             <NavBar {...navBarProps} />
-            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
+            <main className="container mx-auto max-w-7xl pt-4 px-6 flex-grow">
               {children}
             </main>
             <footer className="w-full flex items-center justify-center py-3">

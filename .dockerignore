@@ -1,0 +1,36 @@
+# Build artefacts
+.next/
+node_modules/
+out/
+build/
+dist/
+
+# Tests / coverage
+coverage/
+*.log
+
+# VCS
+.git/
+.gitignore
+.gitattributes
+
+# Docker / CI
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Next
+next-env.d.ts
+tsconfig.tsbuildinfo
+
+# Misc
+blog.tar
+*.md
+!README.md

@@ -12,7 +12,8 @@ export type PostType = {
     date: string;
     excerpt: string;
     tags: string[];
-    imageUrl: string;
+    imageUrl?: string;
+    published?: boolean;
     urlSlug: string;
     content?: string;
     nextSlug: string | null;
@@ -23,6 +24,7 @@ export type TILType = {
     title: string;
     date: string;
     tags: string[];
+    published?: boolean;
     content?: string;
     urlSlug: string;
     nextSlug: string | null;
@@ -53,6 +55,10 @@ function getSlugContent(type: string, slug: string): { data: { [key: string]: an
   let urlPath = slug.replace(/\.mdx$/, "");
   urlPath = `${type}/` + urlPath;
   const { data, content } = matter(fileContents);
+  // Default published to true if not set
+  if (data.published === undefined) {
+    (data as any).published = false;
+  }
   return { data, urlPath, content };
 }
 
@@ -80,7 +86,8 @@ export function getPostBySlug(slug: string): PostType {
     date: data.date,
     excerpt: data.excerpt,
     tags: data.tags,
-    imageUrl: data.imageUrl,
+    imageUrl: data.imageUrl ?? undefined,
+    published: data.published,
     urlSlug: urlPath,
     nextSlug: nextSlug,
     prevSlug: prevSlug,
@@ -95,6 +102,7 @@ export function getTILBySlug(slug: string): TILType {
     title: data.title,
     date: data.date,
     tags: data.tags,
+    published: data.published,
     urlSlug: urlPath,
     nextSlug: nextSlug,
     prevSlug: prevSlug,
@@ -106,6 +114,7 @@ export function getAllPosts(): PostType[] {
     const slugs = getSlugs(postName);
     const posts = slugs
       .map((slug) => getPostBySlug(slug))
+      .filter((post) => post.published)
       .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
     return posts;
 }
@@ -114,6 +123,7 @@ export function getAllTILs(): TILType[] {
     const slugs = getSlugs(tilName);
     const tils = slugs
       .map((slug) => getTILBySlug(slug))
-      .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
+      .filter((til) => til.published)
+      .sort((til1, til2) => (til1.date > til2.date ? -1 : 1));
     return tils;
 }

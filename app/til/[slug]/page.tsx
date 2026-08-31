@@ -8,8 +8,15 @@ export default async function Page({params}: {params: Promise<{ slug: string }>}
   const til = getTILBySlug(slug)
 
   const content = await markdownToHtml(til.content || "");
-  return Content({
-    props: { title: til.title, date: til.date, nextSlug: til.nextSlug, prevSlug: til.prevSlug },
-    content,
-  })
+  return (
+    <Content
+      content={content}
+      props={{
+        title: til.title,
+        date: til.date,
+        nextSlug: til.nextSlug,
+        prevSlug: til.prevSlug,
+      }}
+    />
+  );
 }

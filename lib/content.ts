@@ -41,9 +41,7 @@ function getSlugs(type: string): string[] {
   throw new Error(`Invalid type: ${type}, no corresponding directory` );
 }
 
-// Disabled due to type returned by matter
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function getSlugContent(type: string, slug: string): { data: { [key: string]: any; }; urlPath: string; content: string } {
+function getSlugContent(type: string, slug: string): { data: Record<string, unknown>; urlPath: string; content: string; published: boolean } {
   if (!slug.endsWith(".mdx")) {
     slug = `${slug}.mdx`;
   }
@@ -55,11 +53,9 @@ function getSlugContent(type: string, slug: string): { data: { [key: string]: an
   let urlPath = slug.replace(/\.mdx$/, "");
   urlPath = `${type}/` + urlPath;
   const { data, content } = matter(fileContents);
-  // Default published to true if not set
-  if (data.published === undefined) {
-    (data as any).published = false;
-  }
-  return { data, urlPath, content };
+  const meta = data as Record<string, unknown>;
+  const published = meta["published"] === undefined ? false : Boolean(meta["published"]);
+  return { data: meta, urlPath, content, published };
 }
 
 function getNextPrevSlugs(type: string, slug: string): { nextSlug: string | null; prevSlug: string | null } {
@@ -79,15 +75,21 @@ function getNextPrevSlugs(type: string, slug: string): { nextSlug: string | null
 }
 
 export function getPostBySlug(slug: string): PostType {
-  const { data, urlPath, content } = getSlugContent(postName, slug);
+  const { data, urlPath, content, published } = getSlugContent(postName, slug);
   const { nextSlug, prevSlug } = getNextPrevSlugs(postName, slug);
+  const meta = data as Record<string, unknown>;
+  const title = String(meta["title"] ?? "");
+  const date = String(meta["date"] ?? "");
+  const excerpt = String(meta["excerpt"] ?? "");
+  const tags = (meta["tags"] as string[] | undefined) ?? [];
+  const imageUrl = (meta["imageUrl"] as string | undefined) ?? undefined;
   return {
-    title: data.title,
-    date: data.date,
-    excerpt: data.excerpt,
-    tags: data.tags,
-    imageUrl: data.imageUrl ?? undefined,
-    published: data.published,
+    title,
+    date,
+    excerpt,
+    tags,
+    imageUrl,
+    published,
     urlSlug: urlPath,
     nextSlug: nextSlug,
     prevSlug: prevSlug,
@@ -96,13 +98,17 @@ export function getPostBySlug(slug: string): PostType {
 }
 
 export function getTILBySlug(slug: string): TILType {
-  const { data, urlPath, content } = getSlugContent(tilName, slug);
+  const { data, urlPath, content, published } = getSlugContent(tilName, slug);
   const { nextSlug, prevSlug } = getNextPrevSlugs(tilName, slug);
+  const meta = data as Record<string, unknown>;
+  const title = String(meta["title"] ?? "");
+  const date = String(meta["date"] ?? "");
+  const tags = (meta["tags"] as string[] | undefined) ?? [];
   return {
-    title: data.title,
-    date: data.date,
-    tags: data.tags,
-    published: data.published,
+    title,
+    date,
+    tags,
+    published,
     urlSlug: urlPath,
     nextSlug: nextSlug,
     prevSlug: prevSlug,

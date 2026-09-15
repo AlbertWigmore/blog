@@ -1,20 +1,22 @@
 "use client";
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem} from "@heroui/navbar";
-import {Link} from "@heroui/link";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
+import { Link } from "@heroui/link";
 import { usePathname } from "next/navigation";
+import type { ReactElement } from "react";
 
 export type NavBarItem = {
   name: string;
   href: string;
-} 
+};
 export type NavBarProps = {
   title: string;
   items: NavBarItem[];
 };
 
-export function NavBar(props: NavBarProps): JSX.Element {
+export function NavBar(props: NavBarProps): ReactElement {
   const pathname = usePathname();
-  const activeLink = props.items.find(item => item.href === pathname)?.name ?? null;
+  const activeLink =
+    props.items.find((item) => item.href === pathname)?.name ?? null;
 
   return (
     <Navbar>
@@ -35,8 +37,7 @@ export function NavBar(props: NavBarProps): JSX.Element {
           </NavbarItem>
         ))}
       </NavbarContent>
-      <NavbarContent justify="end">
-      </NavbarContent>
+      <NavbarContent justify="end"></NavbarContent>
     </Navbar>
   );
 }

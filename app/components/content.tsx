@@ -1,6 +1,7 @@
-import { Button } from '@heroui/button';
-import { BackwardIcon, ForwardIcon } from '@heroicons/react/24/solid';
-import { Link } from '@heroui/link'
+import { Button } from "@heroui/button";
+import { BackwardIcon, ForwardIcon } from "@heroicons/react/24/solid";
+import { Link } from "@heroui/link";
+import type { ReactElement } from "react";
 
 export interface ContentHeaderProps {
   title: string;
@@ -14,28 +15,28 @@ export interface ContentProps {
   content: string;
 }
 
-export function Content({ props, content }: ContentProps): JSX.Element {
-    return (
-      <div>
-        <h1>{props.title}</h1>
-        <p>{props.date}</p>
-        <div dangerouslySetInnerHTML={{ __html: content }} />
-        <div className="flex justify-between">
-          {props.prevSlug && (
-            <Link href={props.prevSlug}>
-              <Button variant="solid" startContent={<BackwardIcon />}>
-                Prev
-              </Button>
-            </Link>
-          )}
-          {props.nextSlug && (
-            <Link href={props.nextSlug}>
-              <Button variant="solid" endContent={<ForwardIcon />}>
-                Next
-              </Button>
-            </Link>
-          )}
-        </div>
+export function Content({ props, content }: ContentProps): ReactElement {
+  return (
+    <div>
+      <h1>{props.title}</h1>
+      <p>{props.date}</p>
+      <div dangerouslySetInnerHTML={{ __html: content }} />
+      <div className="flex justify-between">
+        {props.prevSlug && (
+          <Link href={props.prevSlug}>
+            <Button variant="solid" startContent={<BackwardIcon />}>
+              Prev
+            </Button>
+          </Link>
+        )}
+        {props.nextSlug && (
+          <Link href={props.nextSlug}>
+            <Button variant="solid" endContent={<ForwardIcon />}>
+              Next
+            </Button>
+          </Link>
+        )}
       </div>
-    )
-  }
+    </div>
+  );
+}

@@ -5,6 +5,7 @@ import createMDX from '@next/mdx'
 const nextConfig: NextConfig = {
   pageExtensions: ["tsx", "ts", "js", "jsx", "md", "mdx"],
   output: "export",
+  trailingSlash: true,
   images: {
     unoptimized: true,
   },

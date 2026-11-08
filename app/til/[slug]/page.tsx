@@ -1,7 +1,13 @@
-import { getTILBySlug } from '@/lib/content'
+import { getAllTILs, getTILBySlug } from '@/lib/content'
 import markdownToHtml from "@/lib/markdown";
 import { Content } from '@/app/components/content'
 
+export async function generateStaticParams() {
+  const tils = getAllTILs();
+  return tils.map((til) => ({
+    slug: til.urlSlug.replace('/til/', ''),
+  }));
+}
 
 export default async function Page({params}: {params: Promise<{ slug: string }>}) {
   const { slug } = await params

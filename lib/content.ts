@@ -51,7 +51,6 @@ function getSlugContent(type: string, slug: string): { data: Record<string, unkn
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
   let urlPath = slug.replace(/\.mdx$/, "");
-  urlPath = `${type}/` + urlPath;
   const { data, content } = matter(fileContents);
   const meta = data as Record<string, unknown>;
   const published = meta["published"] === undefined ? false : Boolean(meta["published"]);
@@ -90,7 +89,7 @@ export function getPostBySlug(slug: string): PostType {
     tags,
     imageUrl,
     published,
-    urlSlug: urlPath,
+    urlSlug: `/post/${urlPath}`,
     nextSlug: nextSlug,
     prevSlug: prevSlug,
     content,
@@ -109,7 +108,7 @@ export function getTILBySlug(slug: string): TILType {
     date,
     tags,
     published,
-    urlSlug: urlPath,
+    urlSlug: `/til/${urlPath}`,
     nextSlug: nextSlug,
     prevSlug: prevSlug,
     content,
